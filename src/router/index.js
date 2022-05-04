@@ -11,18 +11,19 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/about",
-    name: "about",
+    path: "/user/:id",
+    name: "UserView",
     // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
+    // this generates a separate chunk (userView.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      import(/* webpackChunkName: "userView" */ "../components/UserView"),
   },
 ];
 
 const router = new VueRouter({
   routes,
+  mode: "history",
 });
 
 export default router;
