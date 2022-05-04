@@ -14,25 +14,15 @@ const errorInterceptor = (error) => {
     // all the error responses
     const { baseURL, url } = error.response.config;
     const source = baseURL + url;
-    console.error("Server Error", error.response.status, error.message, source); // eslint-disable-line
-    return Promise.reject(error.response.data);
+    alert(
+      `Server Error ${error.response.status} \n${error.message} \n${source}`
+    );
   }
-  return Promise.reject(error);
+  throw new Error(error);
 };
 
-// Interceptor for responses
-const responseInterceptor = (response) => {
-  switch (response.status) {
-    case 200:
-      // yay!
-      break;
-    // any other cases
-    default:
-    // default case
-  }
+httpClient.interceptors.response.use(function (response) {
   return response.data;
-};
-
-httpClient.interceptors.response.use(responseInterceptor, errorInterceptor);
+}, errorInterceptor);
 
 export default httpClient;

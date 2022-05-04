@@ -1,14 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import TheHome from "../views/TheHome.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "Home",
+    component: TheHome,
   },
   {
     path: "/user/:id",
@@ -17,7 +17,7 @@ const routes = [
     // this generates a separate chunk (userView.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "userView" */ "../components/UserView"),
+      import(/* webpackChunkName: "userView" */ "../views/TheUser"),
   },
 ];
 

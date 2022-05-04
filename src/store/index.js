@@ -1,9 +1,5 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import modules from "./modules";
-Vue.use(Vuex);
+import httpClient from "../utils/http";
 
-export default new Vuex.Store({
-  modules,
-  strict: process.env.NODE_ENV !== "production",
-});
+export const fetchUsers = async function () {
+  return await httpClient.get("/Users");
+};

@@ -1,6 +1,9 @@
 <template>
   <section>
-    <Loader v-if="isLoading" />
+    <nav>
+      <router-link to="/">Users</router-link>
+    </nav>
+    <the-loader v-if="isLoading" />
     <div v-else class="card">
       <h1>User view</h1>
       <div class="card-title">
@@ -31,41 +34,47 @@
 </template>
 
 <script>
-import moment from "moment";
-import { mapGetters, mapActions } from "vuex";
-import Loader from "@/components/Loader";
+import TheLoader from "../components/base/TheLoader";
+import { fetchUsers } from "../store/index";
 
 export default {
-  name: "UserView",
-  components: { Loader },
+  name: "TheUser",
+  components: { TheLoader },
   data: () => ({
     user: {},
     isLoading: false,
+    users: [],
   }),
   computed: {
-    ...mapGetters("user", ["getUsers"]),
     birthday() {
       const birthday = this.user.dateOfBirth;
-      return moment(birthday).format("Do MMM YYYY");
+      return new Date(birthday).toDateString();
     },
   },
   async mounted() {
-    if (!this.getUsers.length) {
+    if (!this.users.length) {
       this.isLoading = true;
-      await this.fetchUsers().finally(() => {
-        this.isLoading = false;
-      });
+      await fetchUsers()
+        .then((res) => (this.users = res))
+        .finally(() => {
+          this.isLoading = false;
+        });
     }
     const id = this.$route.params.id;
-    this.user = this.getUsers.find((user) => user.id === id);
-  },
-  methods: {
-    ...mapActions("user", ["fetchUsers"]),
+    this.user = this.users.find((user) => user.id === id);
   },
 };
 </script>
 
 <style scoped lang="scss">
+nav {
+  padding: 14px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
 .card {
   display: flex;
   flex-direction: column;
