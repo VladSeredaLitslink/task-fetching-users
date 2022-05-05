@@ -22,13 +22,13 @@
       </select>
       <multi-select
         :options="allowFields"
-        label="Choose field(s) what you want to see"
+        label="Choose field(s)"
         placeholder="Search field"
         :value="fields"
         @handlerSelect="onSelect"
       />
     </div>
-    <the-loader v-if="isLoading" />
+    <base-loader v-if="isLoading" />
     <table v-else-if="mutatedUsers.length">
       <tr>
         <th v-for="(field, idx) in fields" :key="idx">{{ field.name }}</th>
@@ -51,13 +51,13 @@
 </template>
 
 <script>
-import TheLoader from "../components/base/TheLoader";
+import BaseLoader from "../components/base/BaseLoader";
 import MultiSelect from "../components/MultiSelect";
-import { fetchUsers } from "../store/index";
+import { fetchUsers } from "../service/users";
 
 export default {
   name: "TheHome",
-  components: { MultiSelect, TheLoader },
+  components: { MultiSelect, BaseLoader },
   data: () => ({
     allowFields: [
       {

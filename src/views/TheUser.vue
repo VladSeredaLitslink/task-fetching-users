@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import TheLoader from "../components/base/TheLoader";
-import { fetchUsers } from "../store/index";
+import TheLoader from "../components/base/BaseLoader";
+import { fetchUsers } from "../service/users";
 
 export default {
   name: "TheUser",

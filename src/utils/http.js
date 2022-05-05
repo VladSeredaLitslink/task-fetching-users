@@ -14,7 +14,7 @@ const errorInterceptor = (error) => {
     // all the error responses
     const { baseURL, url } = error.response.config;
     const source = baseURL + url;
-    alert(
+    console.log(
       `Server Error ${error.response.status} \n${error.message} \n${source}`
     );
   }
